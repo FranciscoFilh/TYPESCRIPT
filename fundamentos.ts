@@ -13,6 +13,17 @@ let falso: boolean = false
 falso = true
 verdade = false
 
+// ANNOTATION e INFERENCE
+let minhaVariavel: string = 'Texto' //ANNOTATION
+let meuArray = [1,2,3,4,5,6,7,8,9] //INFERENCE
+
+minhaVariavel = 'Junior'
+meuArray.push(10)
+
+let multiploArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+multiploArray.push(10)
+
+
 let num: number[] = [1, 3, 5, 7]
 let letras: string[] = ['a', 'b', 'c']
 let misto: any[] = ['a', 1, 'c', true]
@@ -38,7 +49,7 @@ function coordenadas(cord: {x: number, y: number}) {
     console.log(`A coordenada Y é: ${cord.y}`)
 }
 
-const minhaCoordenada = {x: 329, y:72.6}
+const minhaCoordenada = {x: 718, y:115.6}
 coordenadas(minhaCoordenada)
 
 function mostreNumeros (a: number, b: number, c?: number) {
@@ -50,7 +61,7 @@ function mostreNumeros (a: number, b: number, c?: number) {
 mostreNumeros(1,2,3)
 mostreNumeros(4,5)
 
-function validaOpcao(opcao1: string | number, opcao2: number | boolean) {
+function validaOpcao(opcao1: string | number, opcao2: number | boolean ) {
     console.log(opcao1, opcao2)
 }
 
@@ -84,7 +95,7 @@ function userDetails(user: objectAlias) {
     console.log(`Idade: ${user.valor}`)
 }
 
-userDetails({name: 'Paulo', idade: 26})
+userDetails({tipo: 'Paulo', valor: 26})
 
 // INTERFACES
 interface Coords {
@@ -154,3 +165,104 @@ showPet(gatinhoDaAlice)
 interface myPet {
     tipoRacao: string
 }
+
+// FUNÇÃO SEM RETORNO
+function semRetorno(): void {
+    console.log('Sou sem retorno!')
+}
+
+semRetorno()
+
+// LITERAL TYPES
+let teste: 'admin' | 'gerente'
+
+teste = 'gerente'
+
+// TYPE UNKNOW
+function algumaCoisa(x: unknown): void {
+    if (Array.isArray(x)) {
+        console.log(x[0])
+    }
+}
+
+algumaCoisa('10')
+algumaCoisa(true)
+
+// NEVER
+function showError(msgError: string): never {
+    throw new Error(msgError)
+}
+
+// showError('Deu arro aqui!')
+
+// SPREAD e REST no JS
+let umArray = [1,2,3,4,5]
+let umNovoArray = [...umArray,6,7,8,9,10]
+console.log(umNovoArray)
+
+function umaFuncao(...a: number[]) {
+    console.log(a)
+}
+
+umaFuncao(1,2,3,4,5,6)
+umaFuncao(1,2)
+umaFuncao(1)
+// umaFuncao('1') não funciona
+
+// DESTRUCTURING COM PARAMETROS DE OBJETOS
+
+function showProdutos({nome, preco}: {nome: string, preco: number}): string {
+    return `O nome do produto é: ${nome} e o preço dele é: ${preco}`
+}
+
+const camisa = {
+    nome: 'Camisa de Algodão',
+    preco: 39.90
+}
+
+console.log(showProdutos(camisa))
+
+// READONLY
+const meuReadonly: readonly string[][] = [['Paulo']]
+
+// meuReadonly.push(['Junior']) não funciona
+// obs.: toda interface deve iniciar com letra Maiuscula.
+interface Carro {
+    readonly marca: string,
+    modelo: string,
+    qtdPneus: number,
+}
+
+const fusca: Carro = {
+    marca: 'VW',
+    modelo: 'fusca 1600',
+    qtdPneus: 4,
+}
+
+// fusca.marca = 'Ford'
+console.log(fusca.marca)
+
+// OPCIONAL EM INTERFACES
+interface NewUser {
+    email: string
+    senha: string | number
+    regra?: string
+}
+
+function showUserDetails(newUser: NewUser): string {
+    return `Seu e-mail é ${newUser.email} sua senha é ${newUser.senha} e sua regra de acesso é: ${ newUser.regra ? newUser.regra : 'SEM REGRA' }`
+}
+
+const user10: NewUser = {
+    email: 'jota@teste.com.br',
+    senha: 123456,
+    regra: 'gerente'
+}
+
+const user11: NewUser = {
+    email: 'convidado@teste.com.br',
+    senha: 'sem senha',
+}
+
+console.log(showUserDetails(user10))
+console.log(showUserDetails(user11))
